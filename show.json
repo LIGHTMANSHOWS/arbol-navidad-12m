@@ -1,0 +1,155 @@
+{
+  "title": "LIGHTMAN · La magia de Navidad",
+  "audio": "assets/navidad-lightman.mp3",
+  "audioWav": "assets/navidad-lightman.wav",
+  "duration": 180,
+  "sampleRate": 22050,
+  "channels": 2,
+  "tracks": [
+    {
+      "title": "Jingle Bells",
+      "start": 0,
+      "end": 60,
+      "bpm": 128,
+      "beatsPerBar": 4,
+      "bars": 32
+    },
+    {
+      "title": "Deck the Halls",
+      "start": 60,
+      "end": 120,
+      "bpm": 128,
+      "beatsPerBar": 4,
+      "bars": 32
+    },
+    {
+      "title": "We Wish You a Merry Christmas",
+      "start": 120,
+      "end": 180,
+      "bpm": 96,
+      "beatsPerBar": 3,
+      "bars": 32
+    }
+  ],
+  "cues": [
+    {
+      "name": "La estrella despierta",
+      "start": 0,
+      "end": 15,
+      "effect": "sparkle",
+      "palette": "gold",
+      "bars": 8
+    },
+    {
+      "name": "Campanas en espiral",
+      "start": 15,
+      "end": 30,
+      "effect": "spiral",
+      "palette": "christmas",
+      "bars": 8
+    },
+    {
+      "name": "Dulces de Navidad",
+      "start": 30,
+      "end": 45,
+      "effect": "ribbons",
+      "palette": "candy",
+      "bars": 8
+    },
+    {
+      "name": "Fiesta de campanas",
+      "start": 45,
+      "end": 60,
+      "effect": "rings",
+      "palette": "multicolor",
+      "bars": 8
+    },
+    {
+      "name": "Copos sobre el árbol",
+      "start": 60,
+      "end": 75,
+      "effect": "snow",
+      "palette": "ice",
+      "bars": 8
+    },
+    {
+      "name": "Guirnaldas en movimiento",
+      "start": 75,
+      "end": 90,
+      "effect": "waves",
+      "palette": "christmas",
+      "bars": 8
+    },
+    {
+      "name": "La magia asciende",
+      "start": 90,
+      "end": 105,
+      "effect": "spiral",
+      "palette": "gold",
+      "bars": 8
+    },
+    {
+      "name": "Brillo de celebración",
+      "start": 105,
+      "end": 120,
+      "effect": "sparkle",
+      "palette": "candy",
+      "bars": 8
+    },
+    {
+      "name": "Un deseo para todos",
+      "start": 120,
+      "end": 135,
+      "effect": "waves",
+      "palette": "ice",
+      "bars": 8
+    },
+    {
+      "name": "Lazos de luz",
+      "start": 135,
+      "end": 150,
+      "effect": "ribbons",
+      "palette": "christmas",
+      "bars": 8
+    },
+    {
+      "name": "El abrazo de Navidad",
+      "start": 150,
+      "end": 165,
+      "effect": "rings",
+      "palette": "gold",
+      "bars": 8
+    },
+    {
+      "name": "Gran final LIGHTMAN",
+      "start": 165,
+      "end": 180,
+      "effect": "finale",
+      "palette": "multicolor",
+      "bars": 8
+    }
+  ],
+  "notes": [
+    "Medley instrumental de campanas, celesta, pads, bajo y percusión, sintetizado especialmente para este proyecto.",
+    "Tres segmentos de 60 segundos; cambios visuales cada 8 compases, sincronizados al reloj de reproducción de audio.",
+    "No contiene voces, samples ni grabaciones de terceros.",
+    "El diseño es una previsualización musical; la ejecución en hardware requiere secuenciar/exportar los canales y validar en sitio."
+  ],
+  "attribution": [
+    {
+      "title": "Jingle Bells / The One Horse Open Sleigh",
+      "credit": "James Lord Pierpont (1857); melodía histórica. Arreglo y grabación sintetizada nuevos para este proyecto.",
+      "url": "https://www.loc.gov/item/2023812429/"
+    },
+    {
+      "title": "Deck the Halls / Nos Galan",
+      "credit": "Melodía tradicional galesa; edición histórica de Welsh Melodies (1862), volumen 2. Solo melodía instrumental; armonización nueva.",
+      "url": "https://commons.wikimedia.org/wiki/File:Original_printed_version_of_Deck_the_Hall_with_Boughs_of_Holly.jpg"
+    },
+    {
+      "title": "We Wish You a Merry Christmas",
+      "credit": "Melodía tradicional inglesa; arreglo instrumental nuevo. Referencia de identificación del tema, sin reutilizar partituras o grabaciones modernas.",
+      "url": "https://imslp.org/wiki/Christmas_Songs_for_3_Guitars_(Sampson,_David_M.)"
+    }
+  ]
+}
