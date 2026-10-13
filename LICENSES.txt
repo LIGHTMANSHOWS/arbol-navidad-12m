@@ -5,7 +5,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 MÚSICA
-Arreglo y grabación instrumental sintetizados para el proyecto LIGHTMAN Árbol musical 12 m. Sin recordings, samples o voces de terceros. Melodías históricas: Jingle Bells (Pierpont, 1857), Deck the Halls (tradicional galesa), We Wish You a Merry Christmas (tradicional inglesa). Se entregan el audio y el script de síntesis como parte del proyecto del usuario; fuentes documentales en dist/show.json.
+Arreglo y grabación instrumental sintetizados para el proyecto LIGHTMAN Árbol musical 12 m. Sin recordings, samples o voces de terceros. Melodías históricas: Jingle Bells (Pierpont, 1857), Deck the Halls (tradicional galesa), Shchedryk / Carol of the Bells (motivo instrumental de Leontovych; sin letra inglesa moderna). Se entregan el audio y el script de síntesis como parte del proyecto del usuario; fuentes documentales en dist/tracks.json.
 
 TIPOGRAFÍA
 La web solicita DM Sans y Playfair Display mediante Google Fonts; usa Arial y Georgia si el servicio no está disponible. No incluye archivos de tipografía.

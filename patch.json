@@ -1,6 +1,7 @@
 {
-  "schema": "lightman/tree-pixel-patch/v1",
-  "status": "propuesta; validar controladores y orden RGB en montaje",
+  "schema": "lightman/tree-pixel-patch/v2",
+  "option": 1,
+  "status": "propuesta; validar cableado, controladores y orden RGB en montaje",
   "spec": {
     "height": 12,
     "coneHeight": 10.9,
@@ -31,7 +32,8 @@
   },
   "outputs": [
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 1,
       "strand": 1,
       "controller": 1,
       "ip": "10.10.10.101",
@@ -48,7 +50,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 2,
       "strand": 2,
       "controller": 1,
       "ip": "10.10.10.101",
@@ -65,7 +68,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 3,
       "strand": 3,
       "controller": 1,
       "ip": "10.10.10.101",
@@ -82,7 +86,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 4,
       "strand": 4,
       "controller": 1,
       "ip": "10.10.10.101",
@@ -99,7 +104,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 5,
       "strand": 5,
       "controller": 1,
       "ip": "10.10.10.101",
@@ -116,7 +122,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 6,
       "strand": 6,
       "controller": 1,
       "ip": "10.10.10.101",
@@ -133,7 +140,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 7,
       "strand": 7,
       "controller": 1,
       "ip": "10.10.10.101",
@@ -150,7 +158,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 8,
       "strand": 8,
       "controller": 1,
       "ip": "10.10.10.101",
@@ -167,7 +176,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 9,
       "strand": 9,
       "controller": 2,
       "ip": "10.10.10.102",
@@ -184,7 +194,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 10,
       "strand": 10,
       "controller": 2,
       "ip": "10.10.10.102",
@@ -201,7 +212,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 11,
       "strand": 11,
       "controller": 2,
       "ip": "10.10.10.102",
@@ -218,7 +230,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 12,
       "strand": 12,
       "controller": 2,
       "ip": "10.10.10.102",
@@ -235,7 +248,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 13,
       "strand": 13,
       "controller": 2,
       "ip": "10.10.10.102",
@@ -252,7 +266,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 14,
       "strand": 14,
       "controller": 2,
       "ip": "10.10.10.102",
@@ -269,7 +284,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 15,
       "strand": 15,
       "controller": 2,
       "ip": "10.10.10.102",
@@ -286,7 +302,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 16,
       "strand": 16,
       "controller": 2,
       "ip": "10.10.10.102",
@@ -303,7 +320,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 17,
       "strand": 17,
       "controller": 3,
       "ip": "10.10.10.103",
@@ -320,7 +338,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 18,
       "strand": 18,
       "controller": 3,
       "ip": "10.10.10.103",
@@ -337,7 +356,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 19,
       "strand": 19,
       "controller": 3,
       "ip": "10.10.10.103",
@@ -354,7 +374,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 20,
       "strand": 20,
       "controller": 3,
       "ip": "10.10.10.103",
@@ -371,7 +392,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 21,
       "strand": 21,
       "controller": 3,
       "ip": "10.10.10.103",
@@ -388,7 +410,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 22,
       "strand": 22,
       "controller": 3,
       "ip": "10.10.10.103",
@@ -405,7 +428,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 23,
       "strand": 23,
       "controller": 3,
       "ip": "10.10.10.103",
@@ -422,7 +446,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 24,
       "strand": 24,
       "controller": 3,
       "ip": "10.10.10.103",
@@ -439,7 +464,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 25,
       "strand": 25,
       "controller": 4,
       "ip": "10.10.10.104",
@@ -456,7 +482,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 26,
       "strand": 26,
       "controller": 4,
       "ip": "10.10.10.104",
@@ -473,7 +500,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 27,
       "strand": 27,
       "controller": 4,
       "ip": "10.10.10.104",
@@ -490,7 +518,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 28,
       "strand": 28,
       "controller": 4,
       "ip": "10.10.10.104",
@@ -507,7 +536,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 29,
       "strand": 29,
       "controller": 4,
       "ip": "10.10.10.104",
@@ -524,7 +554,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 30,
       "strand": 30,
       "controller": 4,
       "ip": "10.10.10.104",
@@ -541,7 +572,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 31,
       "strand": 31,
       "controller": 4,
       "ip": "10.10.10.104",
@@ -558,7 +590,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 32,
       "strand": 32,
       "controller": 4,
       "ip": "10.10.10.104",
@@ -575,7 +608,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 33,
       "strand": 33,
       "controller": 5,
       "ip": "10.10.10.105",
@@ -592,7 +626,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 34,
       "strand": 34,
       "controller": 5,
       "ip": "10.10.10.105",
@@ -609,7 +644,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 35,
       "strand": 35,
       "controller": 5,
       "ip": "10.10.10.105",
@@ -626,7 +662,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 36,
       "strand": 36,
       "controller": 5,
       "ip": "10.10.10.105",
@@ -643,7 +680,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 37,
       "strand": 37,
       "controller": 5,
       "ip": "10.10.10.105",
@@ -660,7 +698,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 38,
       "strand": 38,
       "controller": 5,
       "ip": "10.10.10.105",
@@ -677,7 +716,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 39,
       "strand": 39,
       "controller": 5,
       "ip": "10.10.10.105",
@@ -694,7 +734,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 40,
       "strand": 40,
       "controller": 5,
       "ip": "10.10.10.105",
@@ -711,7 +752,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 41,
       "strand": 41,
       "controller": 6,
       "ip": "10.10.10.106",
@@ -728,7 +770,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 42,
       "strand": 42,
       "controller": 6,
       "ip": "10.10.10.106",
@@ -745,7 +788,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 43,
       "strand": 43,
       "controller": 6,
       "ip": "10.10.10.106",
@@ -762,7 +806,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 44,
       "strand": 44,
       "controller": 6,
       "ip": "10.10.10.106",
@@ -779,7 +824,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 45,
       "strand": 45,
       "controller": 6,
       "ip": "10.10.10.106",
@@ -796,7 +842,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 46,
       "strand": 46,
       "controller": 6,
       "ip": "10.10.10.106",
@@ -813,7 +860,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 47,
       "strand": 47,
       "controller": 6,
       "ip": "10.10.10.106",
@@ -830,7 +878,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 48,
       "strand": 48,
       "controller": 6,
       "ip": "10.10.10.106",
@@ -847,7 +896,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 49,
       "strand": 49,
       "controller": 7,
       "ip": "10.10.10.107",
@@ -864,7 +914,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 50,
       "strand": 50,
       "controller": 7,
       "ip": "10.10.10.107",
@@ -881,7 +932,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 51,
       "strand": 51,
       "controller": 7,
       "ip": "10.10.10.107",
@@ -898,7 +950,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 52,
       "strand": 52,
       "controller": 7,
       "ip": "10.10.10.107",
@@ -915,7 +968,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 53,
       "strand": 53,
       "controller": 7,
       "ip": "10.10.10.107",
@@ -932,7 +986,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 54,
       "strand": 54,
       "controller": 7,
       "ip": "10.10.10.107",
@@ -949,7 +1004,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 55,
       "strand": 55,
       "controller": 7,
       "ip": "10.10.10.107",
@@ -966,7 +1022,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 56,
       "strand": 56,
       "controller": 7,
       "ip": "10.10.10.107",
@@ -983,7 +1040,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 57,
       "strand": 57,
       "controller": 8,
       "ip": "10.10.10.108",
@@ -1000,7 +1058,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 58,
       "strand": 58,
       "controller": 8,
       "ip": "10.10.10.108",
@@ -1017,7 +1076,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 59,
       "strand": 59,
       "controller": 8,
       "ip": "10.10.10.108",
@@ -1034,7 +1094,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 60,
       "strand": 60,
       "controller": 8,
       "ip": "10.10.10.108",
@@ -1051,7 +1112,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 61,
       "strand": 61,
       "controller": 8,
       "ip": "10.10.10.108",
@@ -1068,7 +1130,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 62,
       "strand": 62,
       "controller": 8,
       "ip": "10.10.10.108",
@@ -1085,7 +1148,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 63,
       "strand": 63,
       "controller": 8,
       "ip": "10.10.10.108",
@@ -1102,7 +1166,8 @@
       "direction": "base → punta"
     },
     {
-      "model": "Árbol",
+      "model": "Píxel 360°",
+      "block": 64,
       "strand": 64,
       "controller": 8,
       "ip": "10.10.10.108",
@@ -1120,6 +1185,7 @@
     },
     {
       "model": "Estrella",
+      "block": 65,
       "strand": 65,
       "controller": 9,
       "ip": "10.10.10.109",

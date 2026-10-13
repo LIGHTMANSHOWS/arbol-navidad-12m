@@ -54,5 +54,6 @@
   "subtotal": 92770.6,
   "reserve10percent": 9277.06,
   "igvReference18percent": 18368.58,
-  "total": 120416.24
+  "total": 120416.24,
+  "appliesTo": "Opción 1; las opciones 2 y 3 requieren presupuesto de fabricación propio"
 }
