@@ -1,5 +1,5 @@
 {
-  "schema": "lightman/tree-geometry/v2",
+  "schema": "lightman/tree-geometry/v3",
   "option": 3,
   "design": {
     "id": 3,

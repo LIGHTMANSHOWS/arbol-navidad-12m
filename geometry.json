@@ -1,10 +1,10 @@
 {
-  "schema": "lightman/tree-geometry/v2",
+  "schema": "lightman/tree-geometry/v3",
   "option": 1,
   "design": {
     "id": 1,
     "name": "Píxel 360°",
-    "description": "Líneas de luz, espirales y barridos de gran impacto.",
+    "description": "Líneas de luz sobre un cono interior opaco.",
     "type": "pixel",
     "reference": null
   },
