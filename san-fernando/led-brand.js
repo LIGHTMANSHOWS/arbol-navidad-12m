@@ -1,6 +1,6 @@
 (function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.LedBrand=factory();})(typeof globalThis!=='undefined'?globalThis:this,function(){
 'use strict';
-const W=32,H=96,cache=new WeakMap(),icon=new Float32Array(W*H*3),brandMask=new Float32Array(64*H),nameMask=new Uint8Array(80*28),bandBrandMask=new Uint8Array(64*7);let brandReady=false,ribbonTape,marqueeTape;
+const W=32,H=96,cache=new WeakMap(),icon=new Float32Array(W*H*3),brandMask=new Float32Array(64*H),nameMask=new Uint8Array(160*32),bandBrandMask=new Uint8Array(64*7);let brandReady=false,ribbonTape,marqueeTape;
 const font={A:['01110','10001','10001','11111','10001','10001','10001'],D:['11110','10001','10001','10001','10001','10001','11110'],E:['11111','10000','10000','11110','10000','10000','11111'],F:['11111','10000','10000','11110','10000','10000','10000'],I:['11111','00100','00100','00100','00100','00100','11111'],L:['10000','10000','10000','10000','10000','10000','11111'],N:['10001','11001','11001','10101','10011','10011','10001'],O:['01110','10001','10001','10001','10001','10001','01110'],R:['11110','10001','10001','11110','10100','10010','10001'],S:['01111','10000','10000','01110','00001','00001','11110'],V:['10001','10001','10001','10001','10001','01010','00100'],Z:['11111','00001','00010','00100','01000','10000','11111']};
 const compact={A:['010','101','101','111','101','101','101'],D:['110','101','101','101','101','101','110'],E:['111','100','100','110','100','100','111'],F:['111','100','100','110','100','100','100'],I:['111','010','010','010','010','010','111'],L:['100','100','100','100','100','100','111'],N:['101','101','111','111','111','101','101'],O:['010','101','101','101','101','101','010'],R:['110','101','101','110','101','101','101'],S:['111','100','100','111','001','001','111'],V:['101','101','101','101','101','101','010'],Z:['111','001','001','010','100','100','111']};
 const lineWidth=line=>line.length*(line.length>5?4:6)-1;
@@ -21,19 +21,20 @@ const c=document.createElement('canvas');c.width=64;c.height=H;const ctx=c.getCo
 ctx.drawImage(image,0,0,image.naturalWidth,image.naturalHeight,2,54,60,26);
 const data=ctx.getImageData(0,0,64,H).data;
 for(let i=0;i<brandMask.length;i++){const k=i*4;brandMask[i]=Math.min(data[k],data[k+1],data[k+2])/255*(data[k+3]/255);}
-const name=document.createElement('canvas');name.width=80;name.height=28;const nameCtx=name.getContext('2d',{willReadFrequently:true});nameCtx.drawImage(image,0,0,image.naturalWidth,image.naturalHeight,0,0,80,28);const nameData=nameCtx.getImageData(0,0,80,28).data;for(let i=0;i<nameMask.length;i++)nameMask[i]=Math.min(nameData[i*4],nameData[i*4+1],nameData[i*4+2])>165?1:0;
+const name=document.createElement('canvas');name.width=160;name.height=32;const nameCtx=name.getContext('2d',{willReadFrequently:true});nameCtx.drawImage(image,0,0,image.naturalWidth,image.naturalHeight,0,0,160,32);const nameData=nameCtx.getImageData(0,0,160,32).data;for(let i=0;i<nameMask.length;i++)nameMask[i]=Math.min(nameData[i*4],nameData[i*4+1],nameData[i*4+2])>165?1:0;
 const band=document.createElement('canvas');band.width=64;band.height=7;const bandCtx=band.getContext('2d',{willReadFrequently:true});bandCtx.drawImage(image,0,0,image.naturalWidth,image.naturalHeight,0,0,64,7);const bandData=bandCtx.getImageData(0,0,64,7).data;
 for(let i=0;i<bandBrandMask.length;i++)bandBrandMask[i]=Math.min(bandData[i*4],bandData[i*4+1],bandData[i*4+2])>165?1:0;
 brandReady=true;buildRibbonTape();buildMarqueeTape();
 };image.src='assets/san-fernando-nombre-continuo.png';}
 function buildMarqueeTape(){
-const prefix='FELIZ NAVIDAD LES DESEA ',suffix=brandReady?'':'SAN FERNANDO',width=prefix.length*6+(brandReady?80:suffix.length*6)+16,rows=Array.from({length:28},()=>new Uint8Array(width));
-for(let c=0;c<(prefix+suffix).length;c++){const glyph=font[(prefix+suffix)[c]];if(!glyph)continue;for(let y=0;y<14;y++)for(let x=0;x<5;x++)rows[y+7][c*6+x]=glyph[Math.floor(y/2)][x]==='1'?1:0;}
-if(brandReady)for(let y=0;y<28;y++)for(let x=0;x<80;x++)rows[y][prefix.length*6+x]=nameMask[y*80+x];
+// Models 1 and 3 share this ticker; the spiral has its own unchanged tape.
+const prefix='FELIZ NAVIDAD LES DESEA ',suffix=brandReady?'':'SAN FERNANDO',advance=24,width=prefix.length*advance+(brandReady?160:suffix.length*advance)+32,rows=Array.from({length:56},()=>new Uint8Array(width));
+for(let c=0;c<(prefix+suffix).length;c++){const glyph=font[(prefix+suffix)[c]];if(!glyph)continue;for(let y=0;y<28;y++)for(let x=0;x<20;x++)rows[y+14][c*advance+x]=glyph[Math.floor(y/4)][Math.floor(x/4)]==='1'?1:0;}
+if(brandReady)for(let y=0;y<32;y++)for(let x=0;x<160;x++)rows[y+12][prefix.length*advance+x]=nameMask[y*160+x];
 marqueeTape={width,rows};
 }
 function sample(s,x,y){
-if(s.marquee){if(!marqueeTape)buildMarqueeTape();const row=Math.floor(y-54),col=((Math.floor(x+s.beat*6)%marqueeTape.width)+marqueeTape.width)%marqueeTape.width;return row>=0&&row<28&&marqueeTape.rows[row][col]?[1,1,1]:null;}
+if(s.marquee){if(!marqueeTape)buildMarqueeTape();const row=Math.floor(y-38),col=((Math.floor(x+s.beat*12)%marqueeTape.width)+marqueeTape.width)%marqueeTape.width;return row>=0&&row<56&&marqueeTape.rows[row][col]?[1,1,1]:null;}
 
 if(s.brand){x=Math.floor(x);y=Math.floor(y);return brandReady&&x>=0&&x<64&&y>=0&&y<H&&brandMask[y*64+x]>.48?[1,1,1]:null;}
 if(s.lines){
@@ -62,6 +63,6 @@ for(let c=0;c<3;c++)rgb[k+c]=lit?1:rgb[k+c]*.005;
 }
 return 1;
 }
-function apply(rgb,points,t,track,preview=false){const ribbon=points[0]&&points[0].ribbonProgress!==undefined,s=state(t,track,preview,ribbon?2:1);if(!s.active)return 0;let samples=cache.get(points);if(!samples){samples=points.map((p,i)=>{const a=p.feature==='foliage'?((p.strand+32)%64-32)/64:Math.atan2(p.x,p.z)/(Math.PI*2),column=p.ribbonProgress===undefined?0:Math.round(p.ribbonProgress*1199);return {a:a*64,y:(1-p.h)*H,distance:p.ribbonDistance??column,pitch:p.ribbonStep??1,row:p.ribbonRow??i%8};});cache.set(points,samples);}if(s.ribbon)return applyRibbon(rgb,points,s,samples);for(let i=0;i<points.length;i++){if(points[i].star)continue;const j=i*3;if(points[i].feature==='ornament')continue;const p=samples[i],period=s.lines?64:32,angle=((p.a-s.orbit+period/2)%period+period)%period-period/2,x=(s.marquee?p.a+32:angle+(s.lines?32:W/2)),c=sample(s,x,p.y);for(let channel=0;channel<3;channel++){const background=rgb[j+channel];rgb[j+channel]=c?Math.max(background*.15,c[channel]*s.pulse):background*(s.lines?.10:.25);}}return 1;}
-return {load,apply,state,scenes,ribbonPhrases,amount:(t,track,preview)=>state(t,track,preview).strength};
+function apply(rgb,points,t,track,preview=false){const ribbon=points[0]&&points[0].ribbonProgress!==undefined,s=state(t,track,preview,ribbon?2:1);if(!s.active)return 0;let samples=cache.get(points);if(!samples){samples=points.map((p,i)=>{const a=p.feature==='foliage'?((p.strand+32)%64-32)/64:Math.atan2(p.x,p.z)/(Math.PI*2),column=p.ribbonProgress===undefined?0:Math.round(p.ribbonProgress*1199);return {a:a*64,y:(1-p.h)*H,distance:p.ribbonDistance??column,pitch:p.ribbonStep??1,row:p.ribbonRow??i%8};});cache.set(points,samples);}if(s.ribbon)return applyRibbon(rgb,points,s,samples);if(s.marquee){for(let i=0;i<points.length;i++){if(points[i].star)continue;for(let c=0;c<3;c++)rgb[i*3+c]*=points[i].feature==='ornament'?.4:.065;}return 1;}for(let i=0;i<points.length;i++){if(points[i].star)continue;const j=i*3;if(points[i].feature==='ornament')continue;const p=samples[i],period=s.lines?64:32,angle=((p.a-s.orbit+period/2)%period+period)%period-period/2,x=(s.marquee?p.a+32:angle+(s.lines?32:W/2)),c=sample(s,x,p.y);for(let channel=0;channel<3;channel++){const background=rgb[j+channel];rgb[j+channel]=c?Math.max(background*.15,c[channel]*s.pulse):background*(s.lines?.10:.25);}}return 1;}
+return {ticker:()=>{if(!marqueeTape)buildMarqueeTape();return marqueeTape;},load,apply,state,scenes,ribbonPhrases,amount:(t,track,preview)=>state(t,track,preview).strength};
 });
