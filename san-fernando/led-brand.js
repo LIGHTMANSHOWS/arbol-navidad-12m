@@ -6,6 +6,7 @@ const compact={A:['010','101','101','111','101','101','101'],D:['110','101','101
 const lineWidth=line=>line.length*(line.length>5?4:6)-1;
 const bandFont={
 A:['01110','10001','11111','10001','10001'],B:['11110','10001','11110','10001','11110'],C:['01111','10000','10000','10000','01111'],D:['11110','10001','10001','10001','11110'],E:['11111','10000','11110','10000','11111'],F:['11111','10000','11110','10000','10000'],G:['01111','10000','10111','10001','01110'],H:['10001','10001','11111','10001','10001'],I:['11111','00100','00100','00100','11111'],J:['00111','00010','00010','10010','01100'],L:['10000','10000','10000','10000','11111'],M:['10001','11011','10101','10001','10001'],N:['10001','11001','10101','10011','10001'],O:['01110','10001','10001','10001','01110'],P:['11110','10001','11110','10000','10000'],R:['11110','10001','11110','10010','10001'],S:['01111','10000','01110','00001','11110'],T:['11111','00100','00100','00100','00100'],U:['10001','10001','10001','10001','01110'],V:['10001','10001','10001','01010','00100'],Y:['10001','01010','00100','00100','00100'],Z:['11111','00010','00100','01000','11111']};
+const ribbonEffects=['COMETAS','ONDAS','CASCADA','PULSOS','DESTELLOS'];
 const ribbonPhrases=['FELIZ NAVIDAD','PAZ Y AMOR','FELICES FIESTAS','UNIDOS EN FAMILIA','LUZ Y ESPERANZA','COMPARTE ALEGRIA','SONRIE ES NAVIDAD','GRACIAS POR ESTAR','CELEBREMOS JUNTOS','VIVE LA MAGIA','UNA GRAN FAMILIA','AMOR EN CADA LUZ'];
 const logo=()=>({word:null,lines:null,direction:'orbit',beats:24,label:'ISOTIPOS OPUESTOS · GIRO 360°'});
 const text=(lines,beats=32)=>({word:lines.join(' '),lines,brand:lines.join(' ')==='SAN FERNANDO',direction:'orbit',beats,label:lines.join(' ')+' · HORIZONTAL · GIRO 360°'});
@@ -13,7 +14,7 @@ const text=(lines,beats=32)=>({word:lines.join(' '),lines,brand:lines.join(' ')=
 const scenes=[logo(),{...text(['FELIZ NAVIDAD LES DESEA SAN FERNANDO'],112),marquee:true}];
 const cycle=scenes.reduce((n,s)=>n+s.beats,0);
 function state(t,track,preview=false,option=1){let beat=(t-track.ignitionAt)*track.bpm/60;if(preview)beat=t*track.bpm/60;const active=preview||(beat>=0&&t<track.duration);if(!active)return {active:false,strength:0,label:'',direction:'orbit',index:-1};let local=((beat%cycle)+cycle)%cycle,index=0;while(local>=scenes[index].beats){local-=scenes[index].beats;index++;}const s=scenes[index],progress=local/s.beats,width=s.brand?60:s.lines?Math.max(...s.lines.map(lineWidth)):W,ribbon=option===2&&(preview||!!s.lines);
-return {active:true,strength:1,label:ribbon?'ESPIRAL · FRASES CONTINUAS':s.marquee?'FELIZ NAVIDAD · LETRERO 360°':s.label,subtitle:ribbon?'LETRAS Y ESPACIOS UNIFORMES · FONDO OSCURO':s.lines?'SALUDO CONTINUO · GIRO 360°':'ISOTIPOS OPUESTOS · GIRO 360°',direction:s.direction,index,word:s.word,lines:s.lines,marquee:s.marquee,brand:s.brand,ribbon,beat,progress,orbit:s.brand?26-progress*128:progress*(s.lines?128:64),width,local,pulse:.94+.06*Math.exp(-(beat-Math.floor(beat))*6)};}
+return {active:true,strength:1,label:ribbon?'ESPIRAL · FRASES CONTINUAS':s.marquee?'FELIZ NAVIDAD · LETRERO 360°':s.label,subtitle:ribbon?ribbonEffects[Math.floor(beat/8)%ribbonEffects.length]+' · BORDES A COLOR · TEXTO BLANCO':s.lines?'SALUDO CONTINUO · GIRO 360°':'ISOTIPOS OPUESTOS · GIRO 360°',direction:s.direction,index,word:s.word,lines:s.lines,marquee:s.marquee,brand:s.brand,ribbon,beat,progress,orbit:s.brand?26-progress*128:progress*(s.lines?128:64),width,local,pulse:.94+.06*Math.exp(-(beat-Math.floor(beat))*6)};}
 function load(){loadBrandLettering();const image=new Image();image.onload=()=>{const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,33,19,165,202,2,23,28,64);const data=ctx.getImageData(0,0,W,H).data;for(let y=0;y<H;y++)for(let x=0;x<W;x++){const k=(y*W+x)*4,r=data[k]/255,g=data[k+1]/255,b=data[k+2]/255;if(data[k+3]<80)continue;const out=(y*W+x)*3;if(r>.45&&r>g*1.8&&r>b*1.4)icon.set([1,.01,.03],out);else if(Math.min(r,g,b)>.55)icon.set([1,1,1],out);}};image.src='assets/san-fernando-isotipo.png';}
 function loadBrandLettering(){const image=new Image();image.onload=()=>{
 const band=document.createElement('canvas');band.width=64;band.height=7;const bandCtx=band.getContext('2d',{willReadFrequently:true});bandCtx.drawImage(image,0,0,image.naturalWidth,image.naturalHeight,0,0,64,7);const bandData=bandCtx.getImageData(0,0,64,7).data;
@@ -55,16 +56,25 @@ for(let i=0;i<phrases.length;i++){const phrase=phrases[i];for(let char=0;char<ph
 if(i===0){offset+=6;if(brandReady)for(let y=0;y<7;y++)for(let x=0;x<64;x++)rows[y][offset+x]=bandBrandMask[y*64+x];offset+=64;}offset+=gap;}
 ribbonTape={width,rows};
 }
-function applyRibbon(rgb,points,s,samples){
-if(!ribbonTape)buildRibbonTape();const scroll=s.beat*100/16;
+function applyRibbon(rgb,points,s,samples,brightness){
+if(!ribbonTape)buildRibbonTape();
+const beat=s.beat,scroll=beat*100/16,mode=Math.floor(beat/8)%5,fract=x=>x-Math.floor(x),pulse=Math.exp(-fract(beat)*6),textLevel=brightness*(.94+.06*pulse);
 for(let i=0;i<points.length;i++){
-const point=points[i];if(point.star)continue;const k=i*3,p=samples[i];
-if(p.row===0){for(let c=0;c<3;c++)rgb[k+c]*=.02;continue;}
-const row=7-p.row,col=((Math.floor(p.distance/p.pitch+scroll)%ribbonTape.width)+ribbonTape.width)%ribbonTape.width,lit=!!ribbonTape.rows[row][col];
-for(let c=0;c<3;c++)rgb[k+c]=lit?1:rgb[k+c]*.005;
+const point=points[i];if(point.star)continue;const k=i*3,p=samples[i],column=p.distance/p.pitch;
+let effect;
+switch(mode){
+case 0:effect=Math.pow(fract(column/100-beat/4),12);break;
+case 1:effect=Math.pow(.5+.5*Math.sin(point.h*16-beat*Math.PI/2+point.a*Math.PI*2),2);break;
+case 2:effect=Math.exp(-fract(point.h+beat/8)*8);break;
+case 3:effect=(Math.floor(point.ribbonProgress*12+beat)%2?.35:1)*(.25+.75*pulse);break;
+default:{const seed=Math.sin(Math.floor(column)*127.1+Math.floor(beat*2)*73.7)*43758.5453;effect=fract(seed)>.91?1:.12+.35*pulse;}
+}
+// Keep the bottom edge independent; on the top edge the white letters win.
+const row=7-p.row,col=((Math.floor(column+scroll)%ribbonTape.width)+ribbonTape.width)%ribbonTape.width,lit=p.row!==0&&!!ribbonTape.rows[row][col],edge=point.feature==='edge';
+for(let c=0;c<3;c++)rgb[k+c]=lit?textLevel:Math.min(1,rgb[k+c]*(edge?.55+1.9*effect:.025+.11*effect));
 }
 return 1;
 }
-function apply(rgb,points,t,track,preview=false,brightness=1){const ribbon=points[0]&&points[0].ribbonProgress!==undefined,s=state(t,track,preview,ribbon?2:1);if(!s.active)return 0;let samples=cache.get(points);if(!samples){samples=points.map((p,i)=>{const a=p.feature==='foliage'?((p.strand+32)%64-32)/64:Math.atan2(p.x,p.z)/(Math.PI*2),column=p.ribbonProgress===undefined?0:Math.round(p.ribbonProgress*1199);return {a:a*64,y:(1-p.h)*H,distance:p.ribbonDistance??column,pitch:p.ribbonStep??1,row:p.ribbonRow??i%8};});cache.set(points,samples);}if(s.ribbon)return applyRibbon(rgb,points,s,samples);if(s.marquee)return applyModelMarquee(rgb,points,s,brightness);for(let i=0;i<points.length;i++){if(points[i].star)continue;const j=i*3;if(points[i].feature==='ornament')continue;const p=samples[i],period=s.lines?64:32,angle=((p.a-s.orbit+period/2)%period+period)%period-period/2,x=(s.marquee?p.a+32:angle+(s.lines?32:W/2)),c=sample(s,x,p.y);for(let channel=0;channel<3;channel++){const background=rgb[j+channel];rgb[j+channel]=c?Math.max(background*.15,c[channel]*s.pulse):background*(s.lines?.10:.25);}}return 1;}
+function apply(rgb,points,t,track,preview=false,brightness=1){const ribbon=points[0]&&points[0].ribbonProgress!==undefined,s=state(t,track,preview,ribbon?2:1);if(!s.active)return 0;let samples=cache.get(points);if(!samples){samples=points.map((p,i)=>{const a=p.feature==='foliage'?((p.strand+32)%64-32)/64:Math.atan2(p.x,p.z)/(Math.PI*2),column=p.ribbonProgress===undefined?0:Math.round(p.ribbonProgress*1199);return {a:a*64,y:(1-p.h)*H,distance:p.ribbonDistance??column,pitch:p.ribbonStep??1,row:p.ribbonRow??i%8};});cache.set(points,samples);}if(s.ribbon)return applyRibbon(rgb,points,s,samples,brightness);if(s.marquee)return applyModelMarquee(rgb,points,s,brightness);for(let i=0;i<points.length;i++){if(points[i].star)continue;const j=i*3;if(points[i].feature==='ornament')continue;const p=samples[i],period=s.lines?64:32,angle=((p.a-s.orbit+period/2)%period+period)%period-period/2,x=(s.marquee?p.a+32:angle+(s.lines?32:W/2)),c=sample(s,x,p.y);for(let channel=0;channel<3;channel++){const background=rgb[j+channel];rgb[j+channel]=c?Math.max(background*.15,c[channel]*s.pulse):background*(s.lines?.10:.25);}}return 1;}
 return {load,apply,state,scenes,ribbonPhrases,amount:(t,track,preview)=>state(t,track,preview).strength};
 });
