@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06132c">
+  <meta name="description" content="LIGHTMAN Perú presenta Navidad San Fernando: árbol de luces LED y música sincronizada.">
+  <title>LIGHTMAN · Navidad San Fernando</title>
+  <style>
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#06132c;color:#fff;font-family:Arial,sans-serif}
+    iframe{display:block;width:100%;height:100%;height:100dvh;border:0;background:#06132c}
+    noscript{display:block;padding:2rem;line-height:1.5}a{color:#fff}
+  </style>
+</head>
+<body>
+  <iframe id="show" title="LIGHTMAN · Árbol de Navidad San Fernando" src="https://navidad-san-fernando-lightman.ftesen4.chatgpt.site/?tree=2&amp;track=jingle" allow="autoplay; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  <noscript>Navidad San Fernando, una experiencia de LIGHTMAN. <a href="https://navidad-san-fernando-lightman.ftesen4.chatgpt.site/?tree=2&amp;track=jingle">Abrir visualización</a>.</noscript>
+  <script>
+    const query=new URLSearchParams(location.search);
+    const target=new URL('https://navidad-san-fernando-lightman.ftesen4.chatgpt.site/');
+    target.searchParams.set('tree',['1','2','3'].includes(query.get('tree'))?query.get('tree'):'2');
+    target.searchParams.set('track',['jingle','deck','carol'].includes(query.get('track'))?query.get('track'):'jingle');
+    document.getElementById('show').src=target.href;
+  </script>
+</body>
+</html>
+
