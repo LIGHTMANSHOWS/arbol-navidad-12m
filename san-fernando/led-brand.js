@@ -1,0 +1,66 @@
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.LedBrand=factory();})(typeof globalThis!=='undefined'?globalThis:this,function(){
+'use strict';
+const W=24,H=96,cache=new WeakMap(),icon=new Float32Array(W*H*3),brandMask=new Float32Array(64*H),bandBrandMask=new Uint8Array(32*7);let brandReady=false,ribbonTape,marqueeTape;
+const font={A:['01110','10001','10001','11111','10001','10001','10001'],D:['11110','10001','10001','10001','10001','10001','11110'],E:['11111','10000','10000','11110','10000','10000','11111'],F:['11111','10000','10000','11110','10000','10000','10000'],I:['11111','00100','00100','00100','00100','00100','11111'],L:['10000','10000','10000','10000','10000','10000','11111'],N:['10001','11001','11001','10101','10011','10011','10001'],O:['01110','10001','10001','10001','10001','10001','01110'],R:['11110','10001','10001','11110','10100','10010','10001'],S:['01111','10000','10000','01110','00001','00001','11110'],V:['10001','10001','10001','10001','10001','01010','00100'],Z:['11111','00001','00010','00100','01000','10000','11111']};
+const compact={A:['010','101','101','111','101','101','101'],D:['110','101','101','101','101','101','110'],E:['111','100','100','110','100','100','111'],F:['111','100','100','110','100','100','100'],I:['111','010','010','010','010','010','111'],L:['100','100','100','100','100','100','111'],N:['101','101','111','111','111','101','101'],O:['010','101','101','101','101','101','010'],R:['110','101','101','110','101','101','101'],S:['111','100','100','111','001','001','111'],V:['101','101','101','101','101','101','010'],Z:['111','001','001','010','100','100','111']};
+const lineWidth=line=>line.length*(line.length>5?4:6)-1;
+const bandFont={
+A:['01110','10001','11111','10001','10001'],B:['11110','10001','11110','10001','11110'],C:['01111','10000','10000','10000','01111'],D:['11110','10001','10001','10001','11110'],E:['11111','10000','11110','10000','11111'],F:['11111','10000','11110','10000','10000'],G:['01111','10000','10111','10001','01110'],H:['10001','10001','11111','10001','10001'],I:['11111','00100','00100','00100','11111'],J:['00111','00010','00010','10010','01100'],L:['10000','10000','10000','10000','11111'],M:['10001','11011','10101','10001','10001'],N:['10001','11001','10101','10011','10001'],O:['01110','10001','10001','10001','01110'],P:['11110','10001','11110','10000','10000'],R:['11110','10001','11110','10010','10001'],S:['01111','10000','01110','00001','11110'],T:['11111','00100','00100','00100','00100'],U:['10001','10001','10001','10001','01110'],V:['10001','10001','10001','01010','00100'],Y:['10001','01010','00100','00100','00100'],Z:['11111','00010','00100','01000','11111']};
+const ribbonPhrases=['FELIZ NAVIDAD','PAZ Y AMOR','FELICES FIESTAS','UNIDOS EN FAMILIA','LUZ Y ESPERANZA','COMPARTE ALEGRIA','SONRIE ES NAVIDAD','GRACIAS POR ESTAR','CELEBREMOS JUNTOS','VIVE LA MAGIA','UNA GRAN FAMILIA','AMOR EN CADA LUZ'];
+const logo=()=>({word:null,lines:null,direction:'orbit',beats:24,label:'ISOTIPOS OPUESTOS · GIRO 360°'});
+const text=(lines,beats=32)=>({word:lines.join(' '),lines,brand:lines.join(' ')==='SAN FERNANDO',direction:'orbit',beats,label:lines.join(' ')+' · HORIZONTAL · GIRO 360°'});
+// Horizontal text makes two full turns per scene; the isotipos retain their pace.
+const scenes=[logo(),{...text(['FELIZ NAVIDAD LES DESEA SAN FERNANDO'],112),marquee:true}];
+const cycle=scenes.reduce((n,s)=>n+s.beats,0);
+function state(t,track,preview=false,option=1){let beat=(t-track.ignitionAt)*track.bpm/60;if(preview)beat=t*track.bpm/60;const active=preview||(beat>=0&&t<track.duration);if(!active)return {active:false,strength:0,label:'',direction:'orbit',index:-1};let local=((beat%cycle)+cycle)%cycle,index=0;while(local>=scenes[index].beats){local-=scenes[index].beats;index++;}const s=scenes[index],progress=local/s.beats,width=s.brand?60:s.lines?Math.max(...s.lines.map(lineWidth)):W,ribbon=option===2&&(preview||!!s.lines);
+return {active:true,strength:1,label:ribbon?'ESPIRAL · FRASES CONTINUAS':s.label,subtitle:ribbon?'LETRAS Y ESPACIOS UNIFORMES · FONDO OSCURO':s.lines?'SALUDO CONTINUO · GIRO 360°':'ISOTIPOS OPUESTOS · GIRO 360°',direction:s.direction,index,word:s.word,lines:s.lines,marquee:s.marquee,brand:s.brand,ribbon,beat,progress,orbit:s.brand?26-progress*128:progress*(s.lines?128:64),width,local,pulse:.94+.06*Math.exp(-(beat-Math.floor(beat))*6)};}
+function load(){loadBrandLettering();const image=new Image();image.onload=()=>{const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,33,19,165,202,3,30,18,52);const data=ctx.getImageData(0,0,W,H).data;for(let y=0;y<H;y++)for(let x=0;x<W;x++){const k=(y*W+x)*4,r=data[k]/255,g=data[k+1]/255,b=data[k+2]/255;if(data[k+3]<80)continue;const out=(y*W+x)*3;if(r>.45&&r>g*1.8&&r>b*1.4)icon.set([1,.01,.03],out);else if(Math.min(r,g,b)>.55)icon.set([1,1,1],out);}};image.src='assets/san-fernando-isotipo.png';}
+function loadBrandLettering(){const image=new Image();image.onload=()=>{
+// Keep the supplied wordmark whole: one horizontal strip around the cone.
+const c=document.createElement('canvas');c.width=64;c.height=H;const ctx=c.getContext('2d',{willReadFrequently:true});
+ctx.drawImage(image,0,0,image.naturalWidth,image.naturalHeight,2,54,60,26);
+const data=ctx.getImageData(0,0,64,H).data;
+for(let i=0;i<brandMask.length;i++){const k=i*4;brandMask[i]=Math.min(data[k],data[k+1],data[k+2])/255*(data[k+3]/255);}
+const band=document.createElement('canvas');band.width=32;band.height=7;const bandCtx=band.getContext('2d',{willReadFrequently:true});bandCtx.drawImage(image,0,0,image.naturalWidth,image.naturalHeight,0,0,32,7);const bandData=bandCtx.getImageData(0,0,32,7).data;
+for(let i=0;i<bandBrandMask.length;i++)bandBrandMask[i]=Math.min(bandData[i*4],bandData[i*4+1],bandData[i*4+2])>110?1:0;
+brandReady=true;buildRibbonTape();buildMarqueeTape();
+};image.src='assets/san-fernando-nombre-continuo.png';}
+function buildMarqueeTape(){
+const prefix='FELIZ NAVIDAD LES DESEA ',suffix=brandReady?'':'SAN FERNANDO',width=prefix.length*6+(brandReady?40:suffix.length*6)+16,rows=Array.from({length:14},()=>new Uint8Array(width));
+for(let c=0;c<(prefix+suffix).length;c++){const glyph=font[(prefix+suffix)[c]];if(!glyph)continue;for(let y=0;y<14;y++)for(let x=0;x<5;x++)rows[y][c*6+x]=glyph[Math.floor(y/2)][x]==='1'?1:0;}
+if(brandReady)for(let y=0;y<14;y++)for(let x=0;x<40;x++)rows[y][prefix.length*6+x]=brandMask[(Math.floor(y*26/14)+54)*64+Math.floor(x*60/40)+2]>.38?1:0;
+marqueeTape={width,rows};
+}
+function sample(s,x,y){
+if(s.marquee){if(!marqueeTape)buildMarqueeTape();const row=Math.floor(y-62),col=((Math.floor(x+s.beat*6)%marqueeTape.width)+marqueeTape.width)%marqueeTape.width;return row>=0&&row<14&&marqueeTape.rows[row][col]?[1,1,1]:null;}
+
+if(s.brand){x=Math.floor(x);y=Math.floor(y);return brandReady&&x>=0&&x<64&&y>=0&&y<H&&brandMask[y*64+x]>.48?[1,1,1]:null;}
+if(s.lines){
+const lineIndex=Math.floor((y-40)/28),row=Math.floor((y-40-lineIndex*28)/3);
+if(lineIndex<0||lineIndex>=s.lines.length||row<0||row>=7)return null;
+const line=s.lines[lineIndex],glyphs=line.length>5?compact:font,glyphWidth=line.length>5?3:5,advance=glyphWidth+1,width=lineWidth(line),col=Math.floor(x-(64-width)/2),char=Math.floor(col/advance),cx=col%advance;
+return col>=0&&col<width&&cx<glyphWidth&&glyphs[line[char]][row][cx]==='1'?[1,1,1]:null;
+}
+x=Math.floor(x);y=Math.floor(y);if(x<0||x>=W||y<0||y>=H)return null;
+const k=(y*W+x)*3;return icon[k]||icon[k+1]||icon[k+2]?[icon[k],icon[k+1],icon[k+2]]:null;}
+function buildRibbonTape(){
+// One uninterrupted strip: the same glyph pitch and phrase gap everywhere.
+const phrases=['FELIZ NAVIDAD LES DESEA',...ribbonPhrases.slice(1)],gap=12,width=32+6+phrases.reduce((n,phrase)=>n+phrase.length*6+gap,0),rows=Array.from({length:7},()=>new Uint8Array(width)),map=[0,1,1,2,3,3,4];
+let offset=0;
+for(let i=0;i<phrases.length;i++){const phrase=phrases[i];for(let char=0;char<phrase.length;char++){const glyph=bandFont[phrase[char]];if(!glyph)continue;for(let y=0;y<7;y++)for(let x=0;x<5;x++)rows[y][offset+char*6+x]=glyph[map[y]][x]==='1'?1:0;}offset+=phrase.length*6;
+if(i===0){offset+=6;if(brandReady)for(let y=0;y<7;y++)for(let x=0;x<32;x++)rows[y][offset+x]=bandBrandMask[y*32+x];offset+=32;}offset+=gap;}
+ribbonTape={width,rows};
+}
+function applyRibbon(rgb,points,s,samples){
+if(!ribbonTape)buildRibbonTape();const scroll=s.beat*100/16;
+for(let i=0;i<points.length;i++){
+const point=points[i];if(point.star)continue;const k=i*3,p=samples[i];
+if(p.row===0){for(let c=0;c<3;c++)rgb[k+c]*=.02;continue;}
+const row=7-p.row,col=((Math.floor(p.distance/p.pitch+scroll)%ribbonTape.width)+ribbonTape.width)%ribbonTape.width,lit=!!ribbonTape.rows[row][col];
+for(let c=0;c<3;c++)rgb[k+c]=lit?1:rgb[k+c]*.005;
+}
+return 1;
+}
+function apply(rgb,points,t,track,preview=false){const ribbon=points[0]&&points[0].ribbonProgress!==undefined,s=state(t,track,preview,ribbon?2:1);if(!s.active)return 0;let samples=cache.get(points);if(!samples){samples=points.map((p,i)=>{const a=p.feature==='foliage'?((p.strand+32)%64-32)/64:Math.atan2(p.x,p.z)/(Math.PI*2),column=p.ribbonProgress===undefined?0:Math.round(p.ribbonProgress*1199);return {a:a*64,y:(1-p.h)*H,distance:p.ribbonDistance??column,pitch:p.ribbonStep??1,row:p.ribbonRow??i%8};});cache.set(points,samples);}if(s.ribbon)return applyRibbon(rgb,points,s,samples);for(let i=0;i<points.length;i++){if(points[i].star)continue;const j=i*3;if(points[i].feature==='ornament')continue;const p=samples[i],period=s.lines?64:32,angle=((p.a-s.orbit+period/2)%period+period)%period-period/2,x=(s.marquee?p.a+32:angle+(s.lines?32:W/2)),c=sample(s,x,p.y);for(let channel=0;channel<3;channel++){const background=rgb[j+channel];rgb[j+channel]=c?Math.max(background*.15,c[channel]*s.pulse):background*(s.lines?.18:.42);}}return 1;}
+return {load,apply,state,scenes,ribbonPhrases,amount:(t,track,preview)=>state(t,track,preview).strength};
+});
