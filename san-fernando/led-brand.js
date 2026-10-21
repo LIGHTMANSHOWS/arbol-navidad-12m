@@ -28,9 +28,9 @@ brandReady=true;buildRibbonTape();buildMarqueeTape();
 };image.src='assets/san-fernando-nombre-continuo.png';}
 function buildMarqueeTape(){
 // Models 1 and 3 share this ticker; the spiral has its own unchanged tape.
-const prefix='FELIZ NAVIDAD LES DESEA ',suffix=brandReady?'':'SAN FERNANDO',advance=24,width=prefix.length*advance+(brandReady?160:suffix.length*advance)+32,rows=Array.from({length:56},()=>new Uint8Array(width));
-for(let c=0;c<(prefix+suffix).length;c++){const glyph=font[(prefix+suffix)[c]];if(!glyph)continue;for(let y=0;y<28;y++)for(let x=0;x<20;x++)rows[y+14][c*advance+x]=glyph[Math.floor(y/4)][Math.floor(x/4)]==='1'?1:0;}
-if(brandReady)for(let y=0;y<32;y++)for(let x=0;x<160;x++)rows[y+12][prefix.length*advance+x]=nameMask[y*160+x];
+const prefix='FELIZ NAVIDAD LES DESEA ',suffix=brandReady?'':'SAN FERNANDO',advance=24,width=prefix.length*advance+(brandReady?320:suffix.length*advance)+32,rows=Array.from({length:112},()=>new Uint8Array(width));
+for(let c=0;c<(prefix+suffix).length;c++){const glyph=font[(prefix+suffix)[c]];if(!glyph)continue;for(let y=0;y<28;y++)for(let x=0;x<20;x++)rows[y+42][c*advance+x]=glyph[Math.floor(y/4)][Math.floor(x/4)]==='1'?1:0;}
+if(brandReady)for(let y=0;y<64;y++)for(let x=0;x<320;x++)rows[y+24][prefix.length*advance+x]=nameMask[Math.floor(y/2)*160+Math.floor(x/2)];
 marqueeTape={width,rows};
 }
 function sample(s,x,y){
